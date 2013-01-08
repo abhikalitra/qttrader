@@ -1,0 +1,4 @@
+qttrader
+========
+
+Qt Trading software
