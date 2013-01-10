@@ -1,0 +1,122 @@
+20100516:  The plots are now positioned and calculated as vectors. What this means is that plots are mapped to
+           screen coordinates. They can be shifted left or right past the edge of the chart into the future
+           or past as desired. This however is a big change in the way scripts manipulate the data. Scripts
+           will now have to handle individual bars rather than entire lists of bars. We have much greater
+           flexibilty now on how the data is managed.
+
+           ************************************************************************************************
+           WARNING: This means any indicator scripts need to be revised. I would wait until I mention that
+           tweaking is completed, otherwise you will need additional revising at a later time. Save yourself
+           the hassle and wait until it is completed.
+           ************************************************************************************************
+
+           Made changes to all the script formats for indicators. Each indicator now has a PLOT TYPE and COLOR
+           parameters. This is due to the PLOT command changes. See docs for details.
+
+           New INDICATOR command script functions. See docs. Reduced command set to manipulate individual index
+           positions rather than sending or receiving long strings of indicator values.
+
+20100720:  Changed the ~/.qtstalker/config* file db structure. You will have to delete your old one before starting
+           this latest CVS version.
+
+           Changed the indicatorIndex table structure in the ~/.qtstalker/data.sqlite file.  You will have to delete
+           the old table before starting this latest CVS version.
+
+           The groupIndex table schema has changed in ~/.qtstalker/data.sqlite. Drop the table manually
+           before starting qtstalker so it will be recreated properly. Old groups will have to be
+           manually recreated.
+
+           Added the ability to create multiple columns of charts as well as rows of charts. When you create a new
+           indicator, there is a new column field to set. This allows you to create multiple groups of tabbed
+           charts in the same row. This works well if you have a nice big monitor and can have several columns of
+           charts on several rows. If you have a small screen, then you can still keep everything as it was.
+
+           Removed the 'Tab Rows' setting from indicator tabs as there is no need for them anymore. We have a
+           limit of 3 rows that can be easily increased if the need arises and is more dynamic now.
+
+           Removed the indicator panel tab. I found it to be cumbersome and a little clunky. It would be
+           better to just click on the indicator to change the settings, add or delete etc. That is now
+           implemented. Right click on the indicator to bring up the context menu. The only thing that
+           is missing is the instant on/off of indicators in the list. Not a big deal as I don't think
+           it was used much.
+
+           Put back the old 'new indicator' toolbar button on the main toolbar.
+
+           Moved a lot of code from QtstalkerApp into ChartLayout class. Moving towards the QtstalkerApp
+           class containing just the init and glue code for all the gui objects.
+
+           Changed the bar length buttons on the toolbar to a control scheme that uses much less space. It
+           was taking up too much room on the toolbar.
+
+           Added an option to the CSV plugin to try to remove any file suffix from the file name when using
+           the filename as the symbol name.
+
+           Right justified all the gui elements in order to keep mouse travel to a minimum.
+
+           The QuoteServer is now being used. It starts under qtstalker control. Users will have to import
+           their quotes into the QuoteServer. User scripts will also have to be modified to import data using
+           the QuoteServer. There are some sample scripts provided in the QuoteServer/scripts directory.
+           The QuoteServer runs in localhost mode for best speed. This may change in the future if users would
+           like to run the server on a network to serve qtstalker clients once the server has matured and is
+           stable enough for heavy network usage. Might have to also compress the data stream if users want
+           to run on a network. We will see.
+
+20100906:  ************************** BIG CHANGES *********************************************
+           Qtstalker now uses the Qwt charting library for all charting functions. http://qwt.sourceforge.net
+           Please install the most recent version before compiling qtstalker.
+
+           ChartObjectDataBase format has changed. Please delete the chartObjectIndex table from the
+           ~/.qtstalker/data.sqlite file before starting qtstalker. NOTE: There have been so many changes
+           i have lost track, so it might be best to start with a fresh new install by deleting or renaming
+           your ~/.qtstalker directory before starting it.
+
+           All indicator dialogs have been recoded into non blocking versions.
+
+           Removed Cursor / Chart Object toolbar. Use chart context menu.
+
+           NOTE: Features not implemeted yet please see TODO priority list.
+
+
+20101016:  ******************************** ATTENTION ****************************************************
+
+           OK! All the major pieces are complete. I would like to just focus on bug fixes and gui polishing now.
+           CVS is almost stable now. Except for the occassional database change I would appreciate those of you
+           familiar with CVS to start testing stuff so we can find the bugs and release 0.37.
+
+           ***********************************************************************************************
+
+
+
+
+
+************************************************************************************************************
+
+20120627:  REALLY REALLY REALLY REALLY BIG CHANGES
+
+           Up until recently this project was heading down a path which leads to becoming giant, bloated,
+           complex multi-threaded monster that no one developer can grasp. Doomed to stagnate once the
+           core team has moved on. Instead I chose to approach the code from the opposite side.
+           Revisit the tried and true method of chaining together simple tools to create new ones.
+
+           All functionality is derived from plugins. One instance of qtstalker runs one plugin. Thats it.
+           No threading, each instance running in its own space happily. The qtstalker app is reduced to an empty
+           window that can be filled by anything you want. All the app can do is load a plugin. It is up to the
+           plugin to provide the functionality. The app just provides a window to display content by the plugin.
+
+           Each instance of the app we refer to as a 'session'. Each session keeps track of its own settings etc.
+           We have three choices. Create a new session, load an existing one or change the plugin running in the
+           current one. 
+           
+           This gives us the ultimate in flexibility. We have a small library of core functions that provides
+           communication between plugins and the app window and thats it. Plugins call other plugins to do tasks.
+           Any functionality is just added as a new plugin. Anyone can add new functionality without having
+           to understand how to integrate it. Just write the plugin, drop it into the plugin directory and it
+           now becomes ready to use. All the developer needs to know is a few simple setup parameters within the
+           plugin code.
+
+           A basic set of buggy plugins are in CVS now. A few indicators, group management, yahoo quotes
+           and csv import plugins are currently available.
+
+           No docs until the current plugins and session management are deemed stable. Then we can proceed to
+           port the plugins from the old codebase.
+

@@ -1,0 +1,127 @@
+/*
+bbccbb green 120 8 80
+eaffea green 120 8 100
+ffeaea red 0 8 100
+ccbbbb red 0 8 80
+eeeeee gray
+*/
+
+body {
+margin: 0;
+padding: 0;
+background-color: #eeeeee;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 95%;
+}
+
+a {
+text-decoration: underline;
+}
+
+#header {
+margin: 5px 5px 0 5px;
+padding: 0;
+background-color: #bbccbb;
+border: 1px solid #000000;
+}
+
+#header #logo {
+float: left;
+margin: 0; 
+padding: 0;
+}
+
+#header h1 { 
+margin-top: 0.5em; 
+padding: 0;
+font-size: 1.2em;
+}
+
+#content {
+margin: .2em 5px 0 5px;
+padding: .5em .5em 1em .5em;
+background: #eaffea;
+font-size: .9em;
+border: 1px solid #000000;
+}
+
+#content h2 { 
+font-size: 1em;
+}
+
+#content h3 { 
+font-size: 0.9em;
+}
+
+.api {
+font-family: monospace;
+font-weight: bold;
+font-size: 1.1em;
+padding: .5em;
+}
+
+#rightPanel {
+float: right;
+margin: 0 0 0 1em;
+padding: .5em;
+width: 13em;
+font-size: .8em;
+background-color: #ffeaea;
+border: 1px solid #000000;
+}
+
+#warnDoc {
+margin: 0.5em 0 0 0;
+padding: .5em;
+border: 2px solid #ff0000;
+}
+
+#rightPanel p { 
+margin: 0; 
+padding: 0;
+}
+
+#rightPanel h2 { 
+font-size: 1em;
+}
+
+#rightPanel ul { 
+margin: 0; 
+padding: 0;
+list-style: none;
+}
+
+#rightPanel li { 
+margin: 0 0 .4em 0; 
+padding: 0;
+}
+
+#footer {
+margin: .2em 5px 5px 5px;
+padding: 1em .5em 1em .5em;
+font-size: .8em;
+text-align: center;
+background-color: #bbccbb;
+border: 1px solid #000000;
+}
+
+#skiptocontent {
+position: absolute;
+left: -999em;
+}
+
+#bottom-spacer {
+padding-bottom: 50em;
+}
+
+/* http://www.positioniseverything.net/easyclearing.html */
+.clearfix:after {
+content: "."; 
+display: block; 
+height: 0; 
+clear: both; 
+visibility: hidden;
+}
+
+/* For Doxygen */
+.contents { padding: 0 .5em .5em .5em; }

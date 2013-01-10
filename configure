@@ -1,0 +1,71 @@
+#!/bin/sh
+
+echo -n "Determining Qt version ..."
+qtVersionMajorRequired="4"
+qtVersionMinorRequired="5"
+qtMessage="This version of Qttrader requires Qt$qtVersionMajorRequired.$qtVersionMinorRequired or better"
+qmakeCmd=`command -v qmake-qt4`
+qtVersionOk="false"
+if [ -z "$qmakeCmd" ] ; then
+  qmakeOk="false"
+  echo " not found"
+  echo "ERROR: Qt is not properly installed - cannot find 'qmake'"
+else
+  qmakeOk="true"
+  qtVersionOk="true"
+  qtVersion=`"$qmakeCmd" --version 2>&1 | sed -n '/[0-9]\.[0-9]\.[0-9]/s/^.*\([0-9]\.[0-9]\.[0-9]\).*$/\1/p'`
+  echo -n " $qtVersion ..."
+  qtVersionMajor=`echo $qtVersion | sed 's/^\([0-9]\)\..*$/\1/'`
+  qtVersionMinor=`echo $qtVersion | sed 's/^[0-9]\.\([0-9]\)\..*$/\1/'`
+  if [ $qtVersionMajor -ne $qtVersionMajorRequired ]; then
+    qtVersionOk="false"
+  elif [ $qtVersionMinor -lt $qtVersionMinorRequired ]; then
+    qtVersionOk="false"
+  fi
+  if [ "$qtVersionOk" != "true" ]; then
+    echo " not okay"
+    echo "ERROR: $qtMessage"
+  else
+    echo " okay"
+  fi
+fi
+
+echo -n "Determining TA-Lib version ..."
+talibCmd=`command -v ta-lib-config`
+if [ -z "$talibCmd" ] ; then
+  talibOk="false"
+  echo " not found"
+  echo "ERROR: TA-Lib is not properly installed - cannot find 'ta-lib-config'"
+else
+  talibOk="true"
+  talibVersion=`"$talibCmd" --version`
+  echo -n " $talibVersion ..."
+  echo " okay"
+fi
+if [ "$qmakeOk" != "true" ] || [ "$qtVersionOk" != "true" ] || [ "$talibOk" != "true" ]; then
+  echo "ERROR: There were configuration issues. See docs/install.html"
+  exit 1
+fi
+
+echo
+echo "Building Makefile ..."
+qmake-qt4 "DEFINES += QT_NO_COMPAT" "CONFIG += qt" -o Makefile qttrader.pro
+if [ "$?" -ne "0" ]; then
+  echo "ERROR: See configuration messages above."
+  exit 1
+else
+  echo "Done"
+fi
+
+echo
+echo "Creating national language files in i18n ..."
+qmake-qt4 -project -r -o qttrader_single.pro .
+lupdate-qt4 qttrader_single.pro
+echo "Done"
+echo "Compiling existing translations ..."
+lrelease-qt4 i18n/qttrader_??.ts
+echo "Done"
+
+echo
+echo "You may now 'make && sudo make install'"
+
