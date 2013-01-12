@@ -70,7 +70,7 @@ SOURCES += Widget.cpp
 #####################################################
 
 TEMPLATE = lib
-
+DEFINES += QT_NO_DEBUG_OUTPUT QT_NO_WARNING_OUTPUT
 CONFIG += thread warn_on debug
 #CONFIG(debug, debug|release): DEFINES += DEBUG _DEBUG
 
@@ -91,7 +91,7 @@ message("Using LIBS=$$LIBS")
 target.path = "$${INSTALL_LIB_DIR}"
 INSTALLS += target
 
-QMAKE_DISTCLEAN += qtstalker_defines.h
+QMAKE_DISTCLEAN += qttrader_defines.h
 QMAKE_DISTCLEAN += ../.qmake.cache
 
 

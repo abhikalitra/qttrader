@@ -43,7 +43,7 @@
 This file is from Qt4.5.2:
 http://qt.nokia.com/doc/4.5/help-simpletextviewer-assistant-h.html
 
-Qtstalker changes are minor configuration and are noted below, and also in the
+QtTrader changes are minor configuration and are noted below, and also in the
 project's revision control system.
 CVS $Revision: 1.1 $ $Date: 2010/11/07 23:25:04 $
 */

@@ -16,6 +16,6 @@ INSTALLS += target
 QT += core
 QT += gui
 
-!exist(./build){
+!exists(./build){
   system(echo mkdir build)
 }

@@ -1,5 +1,5 @@
 /*
- *  Qtstalker stock charter
+ *  QtTrader stock charter
  *
  *  Copyright (C) 2001-2010 Stefan S. Stratigakos
  *  Copyright (C) 2012 - Mattias Johansson

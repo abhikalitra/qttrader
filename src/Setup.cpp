@@ -1,5 +1,5 @@
 /*
- *  Qtstalker stock charter
+ *  QtTrader stock charter
  *
  *  Copyright (C) 2001-2010 Stefan S. Stratigakos
  *
@@ -21,7 +21,7 @@
 
 #include "Setup.h"
 #include "Global.h"
-#include "qtstalker_defines.h"
+#include "qttrader_defines.h"
 #include "PluginFactory.h"
 
 #include <QtDebug>
@@ -83,7 +83,7 @@ void Setup::setupDefaults ()
 
   // plugin directory
   QString s = INSTALL_LIB_DIR;
-  s.append("/QTTRADER/plugins");
+  s.append(LIB_DIR);
   settings.setValue("plugin_directory", s);
 
   settings.sync();

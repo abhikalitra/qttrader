@@ -1,7 +1,8 @@
 /*
- *  Qtstalker stock charter
+ *  QtTrader stock charter
  *
  *  Copyright (C) 2001-2007 Stefan S. Stratigakos
+ *  Copyright (C) 2013 Mattias Johansson
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -27,14 +28,13 @@
 
 #include "PluginData.h"
 
-class Plugin
+struct Plugin
 {
-  public:
     virtual ~Plugin () {}
     virtual int draw (QPainter *, const QwtScaleMap &, const QwtScaleMap &, const QRect &, void *) = 0;
     virtual int command (PluginData *) = 0;
 };
 
-Q_DECLARE_INTERFACE(Plugin, "com.trolltech.QtTrader.Plugin/1.0")
+Q_DECLARE_INTERFACE(Plugin, "com.QtTrader.Plugin/1.0")
 
 #endif

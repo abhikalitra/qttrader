@@ -14,6 +14,8 @@ HEADERS += Setup.h
 # QMAKE SETTINGS
 #####################################################
 
+DEFINES += QT_NO_DEBUG_OUTPUT QT_NO_WARNING_OUTPUT
+
 TEMPLATE = app
 
 CONFIG += qt thread warn_on debug

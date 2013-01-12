@@ -1,5 +1,5 @@
 /*
- *  Qtstalker stock charter
+ *  QtTrader stock charter
  *
  *  Copyright (C) 2001-2010 Stefan S. Stratigakos
  *
@@ -23,6 +23,7 @@
 
 #include <QtDebug>
 #include <QPluginLoader>
+#include "qttrader_defines.h"
 
 PluginFactory::PluginFactory ()
 {
@@ -32,7 +33,8 @@ Plugin *
 PluginFactory::load (QString d)
 {
     //TODO this is duplicated string
-  QString s = "/usr/local/lib/QTTRADER/plugins/lib" + d;
+    QString s = INSTALL_LIB_DIR;
+    s.append(LIB_DIR).append("/lib").append(d);
 #if defined(Q_OS_MAC)  
   s.append(".dylib");
 #endif
@@ -40,7 +42,7 @@ PluginFactory::load (QString d)
   s.append(".so");
 #endif
   
-// qDebug() << "PluginFactory::loadDialog: loading" << s;
+ qDebug() << "PluginFactory::loadDialog: loading" << s;
   
   QPluginLoader pluginLoader(s);
   QObject *tp = pluginLoader.instance();

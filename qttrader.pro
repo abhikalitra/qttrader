@@ -1,8 +1,10 @@
-
-exists(.qmake.cache) {
-  message("Using .qmake.cache")
-}
-else {
+#
+# DO NOT USE caching for now. Does not help in build times, but creates stupid problems during development.
+#
+#exists(.qmake.cache) {
+#  message("Using .qmake.cache")
+#}
+#else {
   message("Doing automated configuration ...")
 
   unix {
@@ -69,23 +71,29 @@ else {
 
   message("Writing lib/qttrader_defines.h")
   win32 {
-    system(echo $${LITERAL_HASH}ifndef qttrader_DEFINES_H > lib/qttrader_defines.h)
+    system(echo //WARNING! THIS FILE IS AUTO GENERATED. DO NOT EDIT > lib/qttrader_defines.h)
+    system(echo //Changes are to be made in qttrader.pro. Then re-run ./configure to generate this file >> lib/qttrader_defines.h)
+    system(echo $${LITERAL_HASH}ifndef qttrader_DEFINES_H >> lib/qttrader_defines.h)
     system(echo $${LITERAL_HASH}define qttrader_DEFINES_H >> lib/qttrader_defines.h)
     system(echo $${LITERAL_HASH}define INSTALL_BIN_DIR \"$$INSTALL_BIN_DIR\" >> lib/qttrader_defines.h)
     system(echo $${LITERAL_HASH}define INSTALL_DATA_DIR \"$$INSTALL_DATA_DIR\" >> lib/qttrader_defines.h)
     system(echo $${LITERAL_HASH}define INSTALL_DOCS_DIR \"$$INSTALL_DOCS_DIR\" >> lib/qttrader_defines.h)
     system(echo $${LITERAL_HASH}define INSTALL_LIB_DIR \"$$INSTALL_LIB_DIR\" >> lib/qttrader_defines.h)
+    system(echo $${LITERAL_HASH}define LIB_DIR \"$$LIB_DIR\" >> lib/qttrader_defines.h)
     system(echo $${LITERAL_HASH}endif >> lib/qttrader_defines.h)
   } else {
-    system(echo \"$${LITERAL_HASH}ifndef qttrader_DEFINES_H\" > lib/qttrader_defines.h)
+    system(echo \"//WARNING! THIS FILE IS AUTO GENERATED. DO NOT EDIT\" > lib/qttrader_defines.h)
+    system(echo \"//Changes are to be made in qttrader.pro. Then re-run ./configure to generate this file\" >> lib/qttrader_defines.h)
+    system(echo \"$${LITERAL_HASH}ifndef qttrader_DEFINES_H\" >> lib/qttrader_defines.h)
     system(echo \"$${LITERAL_HASH}define qttrader_DEFINES_H\" >> lib/qttrader_defines.h)
     system(echo \"$${LITERAL_HASH}define INSTALL_BIN_DIR \\\"$$INSTALL_BIN_DIR\\\"\" >> lib/qttrader_defines.h)
     system(echo \"$${LITERAL_HASH}define INSTALL_DATA_DIR \\\"$$INSTALL_DATA_DIR\\\"\" >> lib/qttrader_defines.h)
     system(echo \"$${LITERAL_HASH}define INSTALL_DOCS_DIR \\\"$$INSTALL_DOCS_DIR\\\"\" >> lib/qttrader_defines.h)
     system(echo \"$${LITERAL_HASH}define INSTALL_LIB_DIR \\\"$$INSTALL_LIB_DIR\\\"\" >> lib/qttrader_defines.h)
+    system(echo \"$${LITERAL_HASH}define LIB_DIR \\\"$$LIB_DIR\\\"\" >> lib/qttrader_defines.h)
     system(echo \"$${LITERAL_HASH}endif\" >> lib/qttrader_defines.h)
   }
-}
+#}
 message("Using INCLUDEPATH=$$INCLUDEPATH")
 message("Using LIBS=$$LIBS")
 message("Operating system: $$MY_OS")

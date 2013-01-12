@@ -1,5 +1,5 @@
 /*
- *  Qtstalker stock charter
+ *  QtTrader stock charter
  *
  *  Copyright (C) 2001-2010 Stefan S. Stratigakos
  *
@@ -26,7 +26,7 @@
 #include <QtDebug>
 
 #include "qttrader.h"
-#include "qtstalker_defines.h"
+#include "qttrader_defines.h"
 
 int main(int argc, char *argv[])
 {

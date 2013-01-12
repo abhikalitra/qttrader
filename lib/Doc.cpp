@@ -43,7 +43,7 @@
 This file is from Qt4.5.2:
 http://qt.nokia.com/doc/4.5/help-simpletextviewer-assistant-cpp.html
 
-Qtstalker changes are minor configuration and are noted below, and also in the
+QtTrader changes are minor configuration and are noted below, and also in the
 project's revision control system.
 CVS $Revision: 1.2 $ $Date: 2011/09/01 23:03:25 $
 */
@@ -54,7 +54,7 @@ CVS $Revision: 1.2 $ $Date: 2011/09/01 23:03:25 $
 #include <QDebug>
 
 #include "Doc.h"
-#include "qtstalker_defines.h"
+#include "qttrader_defines.h"
 
 Doc::Doc ()
 {
@@ -78,8 +78,7 @@ void Doc::showDocumentation (QString page)
     return;
 
   QByteArray ba("SetSource ");
-//  ba.append("qthelp://com.trolltech.examples.simpletextviewer/doc/");
-  ba.append("qthelp://qtstalker/doc/");
+  ba.append("qthelp://qttrader/doc/");
 
   _proc->write(ba + page.toLocal8Bit() + '\0');
 }
@@ -105,7 +104,7 @@ bool Doc::startAssistant ()
         + QLatin1String("/help/simpletextviewer/documentation/simpletextviewer.qhc")
         << QLatin1String("-enableRemoteControl");
 */
-    QString collectionFile = QString("%1/qtstalker/html/doc.qhc").arg(INSTALL_DOCS_DIR);
+    QString collectionFile = QString("%1/qttrader/html/doc.qhc").arg(INSTALL_DOCS_DIR);
 
     args << QLatin1String("-collectionFile") << collectionFile << QLatin1String("-enableRemoteControl");
 
