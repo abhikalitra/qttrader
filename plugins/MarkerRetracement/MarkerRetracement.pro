@@ -10,7 +10,7 @@ SOURCES += MarkerRetracement.cpp
 HEADERS += MarkerRetracementDialog.h
 SOURCES += MarkerRetracementDialog.cpp
 
-target.path = /usr/local/lib/QTTRADER/plugins
+target.path = "$${INSTALL_PLUGIN_DIR}"
 INSTALLS += target
 
 QT += core

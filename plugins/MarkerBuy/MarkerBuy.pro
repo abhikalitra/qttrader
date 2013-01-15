@@ -10,7 +10,7 @@ SOURCES += MarkerBuy.cpp
 HEADERS += MarkerBuyDialog.h
 SOURCES += MarkerBuyDialog.cpp
 
-target.path = /usr/local/lib/QTTRADER/plugins
+target.path = "$${INSTALL_PLUGIN_DIR}"
 INSTALLS += target
 
 QT += core

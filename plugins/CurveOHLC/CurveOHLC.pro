@@ -10,7 +10,7 @@ SOURCES += CurveOHLC.cpp
 HEADERS += OHLCBar.h
 SOURCES += OHLCBar.cpp
 
-target.path = /usr/local/lib/QTTRADER/plugins
+target.path = "$${INSTALL_PLUGIN_DIR}"
 INSTALLS += target
 
 QT += core

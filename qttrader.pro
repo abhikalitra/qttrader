@@ -8,7 +8,7 @@
   message("Doing automated configuration ...")
 
   unix {
-    MY_OS += "unix"
+    MY_OS = "unix"
     INCLUDEPATH += /usr/include/qt4/Qt
     exists(/usr/local/include/ta-lib) {
       INCLUDEPATH += /usr/local/include/ta-lib
@@ -19,20 +19,20 @@
   }
 
   freebsd-g++ {
-    MY_OS += "freebsd"
+    MY_OS = "freebsd"
     INCLUDEPATH += /usr/X11R6/include
   }
 
   linux-g++ {
-    MY_OS += "linux"
+    MY_OS = "linux"
   }
 
   win32 {
-    MY_OS += "windows"
+    MY_OS = "windows"
   }
 
   macx {
-    MY_OS += "macx"
+    MY_OS = "macx"
     # For MacPorts
     exists(/opt/local/include/ta-lib) {
       INCLUDEPATH += /opt/local/include/ta-lib 
@@ -49,8 +49,6 @@
     }
   }
 
-  message("Using INCLUDEPATH=$$INCLUDEPATH")
-  message("Using LIBS=$$LIBS")
 
   !exists(qttrader.config) {
 	error("Missing configuration file qttrader.config")
@@ -68,6 +66,7 @@
   system(echo "INSTALL_DATA_DIR=$$INSTALL_DATA_DIR" >> .qmake.cache)
   system(echo "INSTALL_DOCS_DIR=$$INSTALL_DOCS_DIR" >> .qmake.cache)
   system(echo "INSTALL_LIB_DIR=$$INSTALL_LIB_DIR" >> .qmake.cache)
+  system(echo "INSTALL_PLUGIN_DIR=$$INSTALL_PLUGIN_DIR" >> .qmake.cache)
 
   message("Writing lib/qttrader_defines.h")
   win32 {
@@ -79,21 +78,22 @@
     system(echo $${LITERAL_HASH}define INSTALL_DATA_DIR \"$$INSTALL_DATA_DIR\" >> lib/qttrader_defines.h)
     system(echo $${LITERAL_HASH}define INSTALL_DOCS_DIR \"$$INSTALL_DOCS_DIR\" >> lib/qttrader_defines.h)
     system(echo $${LITERAL_HASH}define INSTALL_LIB_DIR \"$$INSTALL_LIB_DIR\" >> lib/qttrader_defines.h)
-    system(echo $${LITERAL_HASH}define LIB_DIR \"$$LIB_DIR\" >> lib/qttrader_defines.h)
+    system(echo $${LITERAL_HASH}define INSTALL_PLUGIN_DIR \"$$INSTALL_PLUGIN_DIR" >> lib/qttrader_defines.h)
     system(echo $${LITERAL_HASH}endif >> lib/qttrader_defines.h)
   } else {
     system(echo \"//WARNING! THIS FILE IS AUTO GENERATED. DO NOT EDIT\" > lib/qttrader_defines.h)
     system(echo \"//Changes are to be made in qttrader.pro. Then re-run ./configure to generate this file\" >> lib/qttrader_defines.h)
-    system(echo \"$${LITERAL_HASH}ifndef qttrader_DEFINES_H\" >> lib/qttrader_defines.h)
-    system(echo \"$${LITERAL_HASH}define qttrader_DEFINES_H\" >> lib/qttrader_defines.h)
+    system(echo \"$${LITERAL_HASH}ifndef QTTRADER_DEFINES_H\" >> lib/qttrader_defines.h)
+    system(echo \"$${LITERAL_HASH}define QTTRADER_DEFINES_H\" >> lib/qttrader_defines.h)
     system(echo \"$${LITERAL_HASH}define INSTALL_BIN_DIR \\\"$$INSTALL_BIN_DIR\\\"\" >> lib/qttrader_defines.h)
     system(echo \"$${LITERAL_HASH}define INSTALL_DATA_DIR \\\"$$INSTALL_DATA_DIR\\\"\" >> lib/qttrader_defines.h)
     system(echo \"$${LITERAL_HASH}define INSTALL_DOCS_DIR \\\"$$INSTALL_DOCS_DIR\\\"\" >> lib/qttrader_defines.h)
     system(echo \"$${LITERAL_HASH}define INSTALL_LIB_DIR \\\"$$INSTALL_LIB_DIR\\\"\" >> lib/qttrader_defines.h)
-    system(echo \"$${LITERAL_HASH}define LIB_DIR \\\"$$LIB_DIR\\\"\" >> lib/qttrader_defines.h)
+    system(echo \"$${LITERAL_HASH}define INSTALL_PLUGIN_DIR \\\"$$INSTALL_PLUGIN_DIR\\\"\" >> lib/qttrader_defines.h)
     system(echo \"$${LITERAL_HASH}endif\" >> lib/qttrader_defines.h)
   }
 #}
+
 message("Using INCLUDEPATH=$$INCLUDEPATH")
 message("Using LIBS=$$LIBS")
 message("Operating system: $$MY_OS")
@@ -110,7 +110,6 @@ SUBDIRS += lib
 SUBDIRS += src
 
 # compile plugins
-
 SUBDIRS += plugins/CDL
 SUBDIRS += plugins/CSV
 SUBDIRS += plugins/CurveHistogram

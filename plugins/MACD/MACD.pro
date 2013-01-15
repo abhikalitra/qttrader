@@ -10,7 +10,7 @@ SOURCES += MACD.cpp
 HEADERS += MACDDialog.h
 SOURCES += MACDDialog.cpp
 
-target.path = /usr/local/lib/QTTRADER/plugins
+target.path = "$${INSTALL_PLUGIN_DIR}"
 INSTALLS += target
 
 QT += core

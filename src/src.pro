@@ -14,7 +14,7 @@ HEADERS += Setup.h
 # QMAKE SETTINGS
 #####################################################
 
-DEFINES += QT_NO_DEBUG_OUTPUT QT_NO_WARNING_OUTPUT
+#DEFINES += QT_NO_DEBUG_OUTPUT QT_NO_WARNING_OUTPUT
 
 TEMPLATE = app
 
@@ -48,5 +48,5 @@ QT += sql
 QT += network
 
 !exists(./build){
-  system(echo mkdir build)
+  system(echo $(mkdir) build)
 }

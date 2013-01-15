@@ -70,9 +70,13 @@ SOURCES += Widget.cpp
 #####################################################
 
 TEMPLATE = lib
-DEFINES += QT_NO_DEBUG_OUTPUT QT_NO_WARNING_OUTPUT
-CONFIG += thread warn_on debug
-#CONFIG(debug, debug|release): DEFINES += DEBUG _DEBUG
+#DEFINES += QT_NO_DEBUG_OUTPUT QT_NO_WARNING_OUTPUT
+CONFIG += thread warn_on
+CONFIG(debug, debug|release) {
+    message("Building lib in debug mode\n")
+    DEFINES += DEBUG _DEBUG
+}
+
 
 QMAKE_CXXFLAGS += -rdynamic -ffast-math
 
@@ -87,8 +91,10 @@ LIBS += -L/usr/lib
 
 message("Using INCLUDEPATH=$$INCLUDEPATH")
 message("Using LIBS=$$LIBS")
-
 target.path = "$${INSTALL_LIB_DIR}"
+message("Using target.path = $$target.path")
+message("Using INSTALL_LIB_DIR = $$INSTALL_LIB_DIR")
+
 INSTALLS += target
 
 QMAKE_DISTCLEAN += qttrader_defines.h

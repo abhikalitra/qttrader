@@ -8,7 +8,7 @@ OBJECTS_DIR += build
 HEADERS += DBSymbol.h
 SOURCES += DBSymbol.cpp
 
-target.path = /usr/local/lib/QTTRADER/plugins
+target.path = "$${INSTALL_PLUGIN_DIR}"
 INSTALLS += target
 
 QT += core

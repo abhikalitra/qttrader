@@ -1,5 +1,4 @@
 #!/bin/sh
-
 echo -n "Determining Qt version ..."
 qtVersionMajorRequired="4"
 qtVersionMinorRequired="5"
@@ -43,13 +42,25 @@ else
   echo " okay"
 fi
 if [ "$qmakeOk" != "true" ] || [ "$qtVersionOk" != "true" ] || [ "$talibOk" != "true" ]; then
-  echo "ERROR: There were configuration issues. See docs/install.html"
+  echo "ERROR: There were configuration issues."
   exit 1
 fi
 
 echo
 echo "Building Makefile ..."
-qmake-qt4 "DEFINES += QT_NO_COMPAT" "CONFIG += qt" -o Makefile qttrader.pro
+if [ -z $1 ] ; then
+  echo "No parameter given, defaulting to debug mode"
+  qmake-qt4 "DEFINES += QT_NO_COMPAT" "CONFIG += qt debug" -o Makefile qttrader.pro
+else
+  if [ $1 != "release" ] ; then
+    echo "Parameter given, generating debug"
+    qmake-qt4 "DEFINES += QT_NO_COMPAT" "CONFIG += qt debug" -o Makefile qttrader.pro
+  else
+    echo "Parameter given, generating release"
+    qmake-qt4 "DEFINES += QT_NO_COMPAT" "CONFIG += qt release" -o Makefile qttrader.pro
+  fi
+fi
+
 if [ "$?" -ne "0" ]; then
   echo "ERROR: See configuration messages above."
   exit 1

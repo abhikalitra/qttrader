@@ -21,6 +21,7 @@
 
 #include "PluginFactory.h"
 
+#include <QDir>
 #include <QtDebug>
 #include <QPluginLoader>
 #include "qttrader_defines.h"
@@ -32,17 +33,21 @@ PluginFactory::PluginFactory ()
 Plugin *
 PluginFactory::load (QString d)
 {
-    //TODO this is duplicated string
-    QString s = INSTALL_LIB_DIR;
-    s.append(LIB_DIR).append("/lib").append(d);
+
+#ifdef DEBUG
+    QString s = QDir::currentPath();
+    s.append("/lib").append(d);
+#else
+    QString s = INSTALL_PLUGIN_DIR;
+    s.append("/lib").append(d);
+#endif
+
 #if defined(Q_OS_MAC)  
   s.append(".dylib");
 #endif
 #if defined(Q_OS_UNIX)  
   s.append(".so");
 #endif
-  
- qDebug() << "PluginFactory::loadDialog: loading" << s;
   
   QPluginLoader pluginLoader(s);
   QObject *tp = pluginLoader.instance();

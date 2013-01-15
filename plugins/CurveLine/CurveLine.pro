@@ -10,7 +10,7 @@ SOURCES += CurveLine.cpp
 HEADERS += CLBar.h
 SOURCES += CLBar.cpp
 
-target.path = /usr/local/lib/QTTRADER/plugins
+target.path = "$${INSTALL_PLUGIN_DIR}"
 INSTALLS += target
 
 QT += core

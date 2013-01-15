@@ -1,5 +1,5 @@
 
-DEFINES += QT_NO_DEBUG_OUTPUT QT_NO_WARNING_OUTPUT
+#DEFINES += QT_NO_DEBUG_OUTPUT QT_NO_WARNING_OUTPUT
 
 TEMPLATE = lib
 CONFIG += plugin
@@ -21,7 +21,7 @@ SOURCES += PlotWidget.cpp
 HEADERS +=
 SOURCES +=
 
-target.path = /usr/local/lib/QTTRADER/plugins
+target.path = "$${INSTALL_PLUGIN_DIR}"
 INSTALLS += target
 
 QT += core

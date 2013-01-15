@@ -12,7 +12,7 @@ SOURCES += YahooHistory.cpp
 HEADERS += YahooHistoryDownload.h
 SOURCES += YahooHistoryDownload.cpp
 
-target.path = /usr/local/lib/QTTRADER/plugins
+target.path = "$${INSTALL_PLUGIN_DIR}"
 INSTALLS += target
 
 QT += core

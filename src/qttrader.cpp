@@ -66,6 +66,7 @@ QtTrader::QtTrader (QString session, QString plugin)
     QSettings settings(g_settings);
     settings.beginGroup(g_session);
     tplugin = settings.value("plugin").toString();
+    qDebug() << "Using value from settings";
   }
 
   loadPlugin(tplugin);

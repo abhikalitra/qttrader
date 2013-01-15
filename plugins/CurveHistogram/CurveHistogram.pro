@@ -10,7 +10,7 @@ SOURCES += CurveHistogram.cpp
 HEADERS += CHBar.h
 SOURCES += CHBar.cpp
 
-target.path = /usr/local/lib/QTTRADER/plugins
+target.path = "$${INSTALL_PLUGIN_DIR}"
 INSTALLS += target
 
 QT += core

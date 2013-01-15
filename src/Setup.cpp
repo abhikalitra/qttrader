@@ -82,8 +82,11 @@ void Setup::setupDefaults ()
   QSettings settings(g_settings);
 
   // plugin directory
-  QString s = INSTALL_LIB_DIR;
-  s.append(LIB_DIR);
+#ifdef DEBUG
+    QString s = QDir::currentPath();
+#else
+    QString s = INSTALL_PLUGIN_DIR;
+#endif
   settings.setValue("plugin_directory", s);
 
   settings.sync();

@@ -10,7 +10,7 @@ SOURCES += MarkerVLine.cpp
 HEADERS += MarkerVLineDialog.h
 SOURCES += MarkerVLineDialog.cpp
 
-target.path = /usr/local/lib/QTTRADER/plugins
+target.path = "$${INSTALL_PLUGIN_DIR}"
 INSTALLS += target
 
 QT += core

@@ -63,6 +63,7 @@ int main(int argc, char *argv[])
   QTranslator tor(0);
 
   QString i18nDir = QString("%1/QtTrader/i18n").arg(INSTALL_DATA_DIR);
+  qDebug() <<"QTTrader::main Using INSTALL_DATA_DIR = " << INSTALL_DATA_DIR;
   QString i18nFilename = QString("qttrader_%1").arg(QLocale::system().name());
   tor.load(i18nFilename, i18nDir);
   a.installTranslator( &tor );

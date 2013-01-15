@@ -10,7 +10,7 @@ SOURCES += GUIWidget.cpp
 HEADERS += Group.h
 SOURCES += Group.cpp
 
-target.path = /usr/local/lib/QTTRADER/plugins
+target.path = "$${INSTALL_PLUGIN_DIR}"
 INSTALLS += target
 
 QT += core
