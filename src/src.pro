@@ -18,9 +18,10 @@ HEADERS += Setup.h
 
 TEMPLATE = app
 
-CONFIG += qt thread warn_on debug
-#CONFIG(debug, debug|release): DEFINES += DEBUG _DEBUG
+CONFIG += qt thread warn_on
+CONFIG(debug, debug|release): DEFINES += DEBUG _DEBUG
 
+QMAKE_RPATHDIR += "$${INSTALL_LIB_DIR}" "$${INSTALL_PLUGIN_DIR}"
 QMAKE_CXXFLAGS += -rdynamic -ffast-math
 
 INCLUDEPATH += /usr/local/qwt-5.2.2/include

@@ -78,7 +78,7 @@
     system(echo $${LITERAL_HASH}define INSTALL_DATA_DIR \"$$INSTALL_DATA_DIR\" >> lib/qttrader_defines.h)
     system(echo $${LITERAL_HASH}define INSTALL_DOCS_DIR \"$$INSTALL_DOCS_DIR\" >> lib/qttrader_defines.h)
     system(echo $${LITERAL_HASH}define INSTALL_LIB_DIR \"$$INSTALL_LIB_DIR\" >> lib/qttrader_defines.h)
-    system(echo $${LITERAL_HASH}define INSTALL_PLUGIN_DIR \"$$INSTALL_PLUGIN_DIR" >> lib/qttrader_defines.h)
+    system(echo $${LITERAL_HASH}define INSTALL_PLUGIN_DIR \"$$INSTALL_PLUGIN_DIR\" >> lib/qttrader_defines.h)
     system(echo $${LITERAL_HASH}endif >> lib/qttrader_defines.h)
   } else {
     system(echo \"//WARNING! THIS FILE IS AUTO GENERATED. DO NOT EDIT\" > lib/qttrader_defines.h)

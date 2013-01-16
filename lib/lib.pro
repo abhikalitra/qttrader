@@ -77,7 +77,7 @@ CONFIG(debug, debug|release) {
     DEFINES += DEBUG _DEBUG
 }
 
-
+QMAKE_RPATHDIR += "$${INSTALL_LIB_DIR}" "$${INSTALL_PLUGIN_DIR}"
 QMAKE_CXXFLAGS += -rdynamic -ffast-math
 
 TARGET = QTTRADER
