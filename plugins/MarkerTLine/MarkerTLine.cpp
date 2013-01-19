@@ -2,6 +2,7 @@
  *  QtTrader stock charter
  *
  *  Copyright (C) 2001-2007 Stefan S. Stratigakos
+ *  Copyright (C) 2012-2013 Mattias Johansson
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -260,15 +261,29 @@ MarkerTLine::move (PluginData *pd)
 
       Bar *bar = g_symbol->bar(x);
       if (! bar){
-          bar = g_symbol->bar(g_symbol->bars()-1);
+        bar = g_symbol->bar(g_symbol->bars()-1);
+        QDateTime SistaDatum = bar->date();
+        QDateTime datum = SistaDatum.addDays(x-g_symbol->bars()-1);
+        date->setValue(datum);;
+
+        qDebug() << "WARNING: No bar! datum blir: " << datum;
+      }else{
+          date->setValue(bar->date());
       }
-      date->setValue(bar->date());
       map = tline->plot()->canvasMap(QwtPlot::yRight);
       price->setValue(map.invTransform((double) pd->point.y()));
 
       if (pd->status == PlotStatus::_CREATE_MOVE)
       {
         price2->setValue(price->toDouble());
+        if (! bar){
+          bar = g_symbol->bar(g_symbol->bars()-1);
+          QDateTime SistaDatum = bar->date();
+          QDateTime datum = SistaDatum.addDays(x-g_symbol->bars()-1);
+          date2->setValue(datum);
+        }else{
+          date2->setValue(bar->date());
+        }
       }
 
       tline->plot()->replot();
