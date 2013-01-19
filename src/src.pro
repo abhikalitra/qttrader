@@ -17,11 +17,12 @@ HEADERS += Setup.h
 #DEFINES += QT_NO_DEBUG_OUTPUT QT_NO_WARNING_OUTPUT
 
 TEMPLATE = app
-
 CONFIG += qt thread warn_on
 CONFIG(debug, debug|release): DEFINES += DEBUG _DEBUG
 
-QMAKE_RPATHDIR += "$${INSTALL_LIB_DIR}" "$${INSTALL_PLUGIN_DIR}"
+QMAKE_RPATHDIR += "$${INSTALL_LIB_DIR}"
+message("Using QMAKE_RPATHDIR=$$QMAKE_RPATHDIR")
+
 QMAKE_CXXFLAGS += -rdynamic -ffast-math
 
 INCLUDEPATH += /usr/local/qwt-5.2.2/include
