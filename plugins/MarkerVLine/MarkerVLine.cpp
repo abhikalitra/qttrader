@@ -2,6 +2,7 @@
  *  QtTrader stock charter
  *
  *  Copyright (C) 2001-2007 Stefan S. Stratigakos
+ *  Copyright (C) 2013 Mattias Johansson
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -181,10 +182,17 @@ MarkerVLine::move (PluginData *pd)
 
       if (! g_symbol)
         return 0;
-      Bar *tbar = g_symbol->bar(x);
-      if (! tbar)
-        return 0;
-      date->setValue(tbar->date());
+      Bar *bar = g_symbol->bar(x);
+      if (! bar){
+        bar = g_symbol->bar(g_symbol->bars()-1);
+        QDateTime SistaDatum = bar->date();
+        QDateTime datum = SistaDatum.addDays(x-g_symbol->bars());
+        date->setValue(datum);;
+
+        qDebug() << "WARNING: No bar! datum blir: " << datum;
+      }else{
+          date->setValue(bar->date());
+      }
 
       vline->setModified(TRUE);
 

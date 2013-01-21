@@ -263,7 +263,7 @@ MarkerTLine::move (PluginData *pd)
       if (! bar){
         bar = g_symbol->bar(g_symbol->bars()-1);
         QDateTime SistaDatum = bar->date();
-        QDateTime datum = SistaDatum.addDays(x-g_symbol->bars()-1);
+        QDateTime datum = SistaDatum.addDays(x-g_symbol->bars());
         date->setValue(datum);;
 
         qDebug() << "WARNING: No bar! datum blir: " << datum;
@@ -279,7 +279,7 @@ MarkerTLine::move (PluginData *pd)
         if (! bar){
           bar = g_symbol->bar(g_symbol->bars()-1);
           QDateTime SistaDatum = bar->date();
-          QDateTime datum = SistaDatum.addDays(x-g_symbol->bars()-1);
+          QDateTime datum = SistaDatum.addDays(x-g_symbol->bars());
           date2->setValue(datum);
         }else{
           date2->setValue(bar->date());
@@ -308,7 +308,7 @@ MarkerTLine::move (PluginData *pd)
       if (! bar){
         bar = g_symbol->bar(g_symbol->bars()-1);
         QDateTime SistaDatum = bar->date();
-        QDateTime datum = SistaDatum.addDays(x-g_symbol->bars()-1);
+        QDateTime datum = SistaDatum.addDays(x-g_symbol->bars());
         date2->setValue(datum);
 
         qDebug() << "WARNING: No bar! datum blir: " << datum;

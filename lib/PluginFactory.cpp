@@ -48,12 +48,12 @@ PluginFactory::load (QString d)
 #if defined(Q_OS_UNIX)  
   s.append(".so");
 #endif
-  
+
   QPluginLoader pluginLoader(s);
   QObject *tp = pluginLoader.instance();
   if (! tp)
   {
-    qDebug() << "PluginFactory::load:" << pluginLoader.errorString();
+      qDebug() << "PluginFactory::load:" << pluginLoader.errorString() << " : " << s;
     return 0;
   }
 
