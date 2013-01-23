@@ -259,31 +259,14 @@ MarkerTLine::move (PluginData *pd)
       QwtScaleMap map = tline->plot()->canvasMap(QwtPlot::xBottom);
       int x = map.invTransform((double) pd->point.x());
 
-      Bar *bar = g_symbol->bar(x);
-      if (! bar){
-        bar = g_symbol->bar(g_symbol->bars()-1);
-        QDateTime SistaDatum = bar->date();
-        QDateTime datum = SistaDatum.addDays(x-g_symbol->bars());
-        date->setValue(datum);;
-
-        qDebug() << "WARNING: No bar! datum blir: " << datum;
-      }else{
-          date->setValue(bar->date());
-      }
+      date->setValue(g_symbol->date(x));
       map = tline->plot()->canvasMap(QwtPlot::yRight);
       price->setValue(map.invTransform((double) pd->point.y()));
 
       if (pd->status == PlotStatus::_CREATE_MOVE)
       {
         price2->setValue(price->toDouble());
-        if (! bar){
-          bar = g_symbol->bar(g_symbol->bars()-1);
-          QDateTime SistaDatum = bar->date();
-          QDateTime datum = SistaDatum.addDays(x-g_symbol->bars());
-          date2->setValue(datum);
-        }else{
-          date2->setValue(bar->date());
-        }
+        date2->setValue(g_symbol->date(x));
       }
 
       tline->plot()->replot();
@@ -304,17 +287,7 @@ MarkerTLine::move (PluginData *pd)
       QwtScaleMap map = tline->plot()->canvasMap(QwtPlot::xBottom);
       int x = map.invTransform((double) pd->point.x());
 
-      Bar *bar = g_symbol->bar(x);
-      if (! bar){
-        bar = g_symbol->bar(g_symbol->bars()-1);
-        QDateTime SistaDatum = bar->date();
-        QDateTime datum = SistaDatum.addDays(x-g_symbol->bars());
-        date2->setValue(datum);
-
-        qDebug() << "WARNING: No bar! datum blir: " << datum;
-      }else{
-        date2->setValue(bar->date());
-      }
+      date2->setValue(g_symbol->date(x));
       map = tline->plot()->canvasMap(QwtPlot::yRight);
       price2->setValue(map.invTransform((double) pd->point.y()));
 

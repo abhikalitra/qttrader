@@ -2,6 +2,7 @@
  *  QtTrader stock charter
  *
  *  Copyright (C) 2001-2010 Stefan S. Stratigakos
+ *  Copyright (C) 2001-2010 Mattias Johansson
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -210,4 +211,64 @@ Bars::startEndRange (int &start, int &end)
     it.previous();
     end = it.key();
   }
+}
+
+QDateTime Bars::date (int x){
+
+  QDateTime date;
+  Bar *pBar = bar(x);
+  if (!pBar){
+    pBar = bar(bars()-1);
+    QDateTime lastDate= pBar->date();
+    QDateTime datum = lastDate.addDays(x-bars()+1);
+    date = datum;
+  }else{
+      date = pBar->date();
+  }
+
+  return date;
+}
+
+bool Bars::isValid (int x){
+  Bar *pBar = bar(x);
+  if (!pBar){
+    pBar = bar(bars()-1);
+    if (!pBar)
+        return false;
+  }
+  return true;
+}
+
+// This is very hacky...
+QDateTime Bars::week (int x){
+
+  QDateTime date;
+  Bar *pBar = bar(x);
+  if (!pBar){
+    pBar = bar(bars()-1);
+    QDateTime lastDate= pBar->date();
+    QDateTime datum = lastDate.addDays(((x-bars())*7));
+    date = datum;
+  }else{
+      date = pBar->date();
+  }
+
+  return date;
+}
+
+// This is very hacky...
+QDateTime Bars::month (int x){
+
+  QDateTime date;
+  Bar *pBar = bar(x);
+  if (!pBar){
+    pBar = bar(bars()-1);
+    QDateTime lastDate= pBar->date();
+    QDateTime datum = lastDate.addMonths(x-bars());
+    date = datum;
+  }else{
+      date = pBar->date();
+  }
+
+  return date;
 }

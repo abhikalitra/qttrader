@@ -2,6 +2,7 @@
  *  QtTrader stock charter
  *
  *  Copyright (C) 2001-2010 Stefan S. Stratigakos
+ *  Copyright (C) 2013      Mattias Johansson
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -60,7 +61,45 @@ class Bars
     int bars ();
     QList<int> keys ();
     void startEndRange (int &, int &);
-    
+
+  /*!
+    * Get the date corresponding to x in the chars,
+    * given that the chat is set to daily plotting
+    *
+    * @param x The c coordinate to get the date for
+    *
+    * @returns The date coresponding to x
+    */
+    QDateTime date (int x);
+
+  /*!
+    * Check if x is a valid input for the chart
+    *
+    * @param x The c coordinate to get the date for
+    *
+    * @returns The ture if there is a date for x
+    */
+    bool isValid (int x);
+
+    /*!
+      * Get the month corresponding to x in the chars,
+      * given that the chat is set to monthly plotting
+      *
+      * @param x The c coordinate to get the date for
+      *
+      * @returns The date coresponding to x
+      */
+    QDateTime month (int x);
+    /*!
+      * Get the week corresponding to x in the chars,
+      * given that then chart is set to weekly plotting
+      *
+      * @param x The c coordinate to get the date for
+      *
+      * @returns The date coresponding to x
+      */
+    QDateTime week (int x);
+
   private:
     QString _plugin;
     QString _table;

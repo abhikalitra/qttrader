@@ -182,20 +182,10 @@ MarkerVLine::move (PluginData *pd)
 
       if (! g_symbol)
         return 0;
-      Bar *bar = g_symbol->bar(x);
-      if (! bar){
-        bar = g_symbol->bar(g_symbol->bars()-1);
-        QDateTime SistaDatum = bar->date();
-        QDateTime datum = SistaDatum.addDays(x-g_symbol->bars());
-        date->setValue(datum);;
 
-        qDebug() << "WARNING: No bar! datum blir: " << datum;
-      }else{
-          date->setValue(bar->date());
-      }
+      date->setValue(g_symbol->date(x));
 
       vline->setModified(TRUE);
-
       vline->plot()->replot();
       break;
     }

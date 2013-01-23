@@ -27,7 +27,9 @@
 #include <QString>
 #include <QDebug>
 
-#define STEPS 150
+//This STEPS must be larger than STEPs in plot.cpp to avoid border
+//Issues when printing markers.
+#define STEPS 160
 
 PlotDateScaleDraw::PlotDateScaleDraw ()
 {
@@ -50,17 +52,8 @@ PlotDateScaleDraw::setDates ()
   DateRange dr;
   for (int pos = 0; pos < getPlotEndValue(); pos++)
   {
-    Bar *b = g_symbol->bar(pos);
-    if(!b){
-      b = g_symbol->bar(g_symbol->bars()-1);
-      QDateTime SistaDatum = b->date();
-      QDateTime datum = SistaDatum.addDays(pos-g_symbol->bars()+1);
-      QDateTime ted = dr.interval(datum, g_symbol->barLength());
+      QDateTime ted = dr.interval(g_symbol->date(pos), g_symbol->barLength());
       _dates.insert(ted.toString(Qt::ISODate), pos);
-    }else{
-      QDateTime ted = dr.interval(b->date(), g_symbol->barLength());
-      _dates.insert(ted.toString(Qt::ISODate), pos);
-    }
   }
 }
 
@@ -74,20 +67,12 @@ PlotDateScaleDraw::label (double v) const
   if (t < 1 || t >= getPlotEndValue())
     return QString();
 
-  Bar *bar = g_symbol->bar(t);
-  QDateTime dt;
-  if (! bar)
-  {
-    bar = g_symbol->bar(g_symbol->bars()-1);
-    if(!bar)
-        return QString();
-    QDateTime SistaDatum = bar->date();
-    dt = SistaDatum.addDays(t-g_symbol->bars()+1);
-  }else{
-    dt = bar->date();
-  }
-  QwtText date;
+  if(!g_symbol->isValid(t))
+      return QString();
+  //This only works for daily
+  QDateTime dt = g_symbol->date(t);
 
+  QwtText date;
   switch ((BarLength::Key) g_symbol->barLength())
   {
     case BarLength::_MINUTE1:
@@ -105,6 +90,7 @@ PlotDateScaleDraw::label (double v) const
         date = dt.toString("MMM");
       break;
     case BarLength::_WEEKLY:
+      dt = g_symbol->week(t);
       if (dt.date().month() == 1)
         date = dt.toString("yyyy");
       else
@@ -115,12 +101,13 @@ PlotDateScaleDraw::label (double v) const
       }
       break;
     case BarLength::_MONTHLY:
+      dt = g_symbol->month(t);
       date = dt.toString("yyyy");
       break;
     default:
       break;
   }
-
+//  qDebug() << "Date label : " << dt;
   return date;
 }
 
@@ -179,13 +166,6 @@ PlotDateScaleDraw::draw (QPainter *painter, const QPalette &) const
   for (; loop < (size); loop++)
   {
     bar = g_symbol->bar(loop);
-    if (!bar){
-      //this only works for day scale
-        dt = dt.addDays(1);
-        //continue;
-    }else{
-        dt = bar->date();
-    }
     switch ((BarLength::Key) g_symbol->barLength())
     {
       case BarLength::_MINUTE1:
@@ -202,7 +182,6 @@ PlotDateScaleDraw::draw (QPainter *painter, const QPalette &) const
           // big tick
           drawTick(painter, loop, 10);
           drawLabel(painter, loop);
-          //QString text = date.date().toString("MMM d");
         }
         else
         {
@@ -212,7 +191,6 @@ PlotDateScaleDraw::draw (QPainter *painter, const QPalette &) const
             {
               // draw the short tick
               drawTick(painter, loop, 4);
-              //QString text = QString::number(date.time().hour()) + ":00";
             }
           }
         }
@@ -230,6 +208,7 @@ PlotDateScaleDraw::draw (QPainter *painter, const QPalette &) const
       }
       case BarLength::_DAILY:
       {
+        dt =  g_symbol->date(loop);
         QDate date = dt.date();
         if (date.month() != oldDate.month())
         {
@@ -240,7 +219,6 @@ PlotDateScaleDraw::draw (QPainter *painter, const QPalette &) const
           // draw the long tick
           drawTick(painter, loop, 10);
           drawLabel(painter, loop);
-          // QString text = date.toString("MMM-yy");
         }
         else
         {
@@ -252,14 +230,13 @@ PlotDateScaleDraw::draw (QPainter *painter, const QPalette &) const
 
             // draw the short week tick
             drawTick(painter, loop, 4);
-//            drawLabel(painter, loop);
-            //QString text = date.toString("d");
           }
         }
         break;
       }
       case BarLength::_WEEKLY:
       {
+        dt =  g_symbol->week(loop);
         QDate date = dt.date();
         if (date.month() != oldMonth.month())
         {
@@ -276,23 +253,20 @@ PlotDateScaleDraw::draw (QPainter *painter, const QPalette &) const
             // draw the short tick
             drawTick(painter, loop, 4);
             drawLabel(painter, loop);
-            //QString text = date.toString("MMM");
-            //text.chop(2);
           }
         }
         break;
       }
       case BarLength::_MONTHLY:
       {
+        dt =  g_symbol->month(loop);
         QDate date = dt.date();
         if (date.year() != oldYear.year())
         {
           oldYear = date;
-
           // draw the long tick
           drawTick(painter, loop, 10);
           drawLabel(painter, loop);
-          //QString text = date.toString("yyyy");
         }
         break;
       }
