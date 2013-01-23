@@ -189,8 +189,8 @@ void PlotWidget::setPanScrollBarSize ()
         max = tmax;
     }
   }
-  qDebug() << "range : " << range;
-  qDebug() << "(page + max) : " << (page + max);
+//  qDebug() << "range : " << range;
+//  qDebug() << "(page + max) : " << (page + max);
    max = (max + page) - range;
   _controlWidget->setPan(0, max, page);
 }
@@ -261,23 +261,14 @@ void PlotWidget::refresh ()
     for (int tpos = 0; tpos < tpd.markers.size(); tpos++)
       plot->setMarker(tpd.markers.at(tpos));
 
-
-    // TODO
-    // This should be moved to other place, specific for changing size of scrollbars
-    // when reloaded data.
-    if(first){
-        _controlWidget->setZoom(0,plot->getNumberOfBars(),0);
-        first = false;
-    }else{
-         _controlWidget->resizeZoom(plot->getNumberOfBars());
-    }
   }
 
   //relaod all markers after plot have been updated
   loadMarkers(db);
-  
-  emit signalDraw();
 
+  updateScrollBars();
+
+  emit signalDraw();
   setPanScrollBarSize();
   
   QStringList tl;
@@ -621,8 +612,20 @@ bool PlotWidget::loadSymbolData() {
     pd.command = QString("getBars");
     pd.bars = g_symbol;
 
+
+
     if (! qplug->command(&pd))
       return false;
 
     return true;
+}
+
+void PlotWidget::updateScrollBars(){
+
+    if(first){
+        _controlWidget->setZoom(0,g_symbol->bars(),0);
+        first = false;
+    }else{
+         _controlWidget->resizeZoom(g_symbol->bars());
+    }
 }

@@ -71,7 +71,21 @@ class PlotWidget : public Widget
     void deleteMarkers (QStringList);
    
   private:
+    /**
+      * Loads symbol data if needed.
+      * New symbol data is stored in PluginData
+      *
+      * @return true if new data was loaded
+      */
     bool loadSymbolData();
+
+
+    /**
+      * Updates the scrollbars size for pan and zoom
+      *
+      */
+    void updateScrollBars();
+
     QSplitter *_csplitter;
     QHash<QString, Plot *> _plots;
     QHash<QString, Entity *> _settings;
